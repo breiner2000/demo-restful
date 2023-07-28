@@ -95,6 +95,4 @@ class OrderController {
                         .withTitle("Method not allowed") //
                         .withDetail("You can't complete an order that is in the " + order.getStatus() + " status"));
     }
-
-
 }

@@ -32,27 +32,34 @@ class EmployeeController {
     }
 
 
-//    Sin utilizar Hateoas
-    // Aggregate root
-    // tag::get-aggregate-root[]
-//    @GetMapping("/employees")
-//    List<Employee> all() {
-//        return repository.findAll();
-//    }
+/*
+    Sin utilizar Hateoas
+     Aggregate root
+     tag::get-aggregate-root[]
+    @GetMapping("/employees")
+    List<Employee> all() {
+        return repository.findAll();
+    }
+*/
 
-//    Sin utilizar el EmployeeModelAssembler
-//    @GetMapping("/employees")
-//    CollectionModel<EntityModel<Employee>> all() {
-//        List<EntityModel<Employee>> employees = repository.findAll().stream()
-//                .map(employee -> EntityModel.of(employee,
-//                        linkTo(methodOn(EmployeeController.class).one(employee.getId())).withSelfRel(),
-//                        linkTo(methodOn(EmployeeController.class).all()).withRel("employees")))
-//                .collect(Collectors.toList());
-//
-//        return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
-//    }
 
-//    Utilizando hateoas y Assembler
+    /*
+    Utilizando solo hateoas
+
+    @GetMapping("/employees")
+    CollectionModel<EntityModel<Employee>> all() {
+        List<EntityModel<Employee>> employees = repository.findAll().stream()
+                .map(employee -> EntityModel.of(employee,
+                        linkTo(methodOn(EmployeeController.class).one(employee.getId())).withSelfRel(),
+                        linkTo(methodOn(EmployeeController.class).all()).withRel("employees")))
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+    }
+    */
+
+
+/*    Utilizando hateoas y Assembler */
     @GetMapping("/employees")
     CollectionModel<EntityModel<Employee>> all() {
 
@@ -64,14 +71,12 @@ class EmployeeController {
     }
 
 
-    // end::get-aggregate-root[]
-
 //    @PostMapping("/employees")
 //    Employee newEmployee(@RequestBody Employee newEmployee) {
 //        return repository.save(newEmployee);
 //    }
 
-//    para manejar solicitudes de clientes nuevos
+    /* employees con first y last name */
     @PostMapping("/employees")
     ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) {
 
@@ -81,7 +86,6 @@ class EmployeeController {
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
                 .body(entityModel);
     }
-
 
 
     // Single item
