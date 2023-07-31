@@ -10,7 +10,7 @@ import java.util.Objects;
 class Employee {
 
     private @Id @GeneratedValue Long id;
-    private String name;
+//    private String name;
 
 //    modificaciones a la clase para empleados nuevos
     private String firstName;
